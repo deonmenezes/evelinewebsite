@@ -1,0 +1,396 @@
+@import "tailwindcss";
+
+:root {
+  --neo-black: #0a0a0a;
+  --neo-white: #fffef0;
+  --neo-yellow: #ffde59;
+  --neo-pink: #ff6b9d;
+  --neo-blue: #4ecdc4;
+  --neo-purple: #a855f7;
+  --neo-orange: #ff8c42;
+  --neo-green: #7bed9f;
+  --neo-red: #ff4757;
+  --neo-cyan: #00d9ff;
+}
+
+@theme {
+  --color-neo-black: #0a0a0a;
+  --color-neo-white: #fffef0;
+  --color-neo-yellow: #ffde59;
+  --color-neo-pink: #ff6b9d;
+  --color-neo-blue: #4ecdc4;
+  --color-neo-purple: #a855f7;
+  --color-neo-orange: #ff8c42;
+  --color-neo-green: #7bed9f;
+  --color-neo-red: #ff4757;
+  --color-neo-cyan: #00d9ff;
+
+  --font-sans: "Space Grotesk", system-ui, sans-serif;
+  --font-display: "Space Grotesk", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+}
+
+* {
+  scroll-behavior: smooth;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--neo-white);
+  color: var(--neo-black);
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+}
+
+/* Neobrutalist Border Utility */
+.neo-border {
+  border: 4px solid var(--neo-black);
+  box-shadow: 8px 8px 0px var(--neo-black);
+}
+
+.neo-border-thick {
+  border: 6px solid var(--neo-black);
+  box-shadow: 12px 12px 0px var(--neo-black);
+}
+
+.neo-border-sm {
+  border: 3px solid var(--neo-black);
+  box-shadow: 5px 5px 0px var(--neo-black);
+}
+
+/* Hover effects */
+.neo-hover {
+  transition: all 0.2s ease;
+}
+
+.neo-hover:hover {
+  transform: translate(-4px, -4px);
+  box-shadow: 12px 12px 0px var(--neo-black);
+}
+
+.neo-hover-lg:hover {
+  transform: translate(-6px, -6px);
+  box-shadow: 18px 18px 0px var(--neo-black);
+}
+
+/* Button styles */
+.neo-btn {
+  border: 4px solid var(--neo-black);
+  box-shadow: 6px 6px 0px var(--neo-black);
+  transition: all 0.15s ease;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.neo-btn:hover {
+  transform: translate(-3px, -3px);
+  box-shadow: 9px 9px 0px var(--neo-black);
+}
+
+.neo-btn:active {
+  transform: translate(2px, 2px);
+  box-shadow: 4px 4px 0px var(--neo-black);
+}
+
+/* Animated gradient background */
+@keyframes gradient-shift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.gradient-animate {
+  background-size: 200% 200%;
+  animation: gradient-shift 8s ease infinite;
+}
+
+/* Marquee animation */
+@keyframes marquee {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-marquee {
+  animation: marquee 20s linear infinite;
+}
+
+/* Float animation */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
+}
+
+.animate-float {
+  animation: float 4s ease-in-out infinite;
+}
+
+/* Bounce animation */
+@keyframes bounce-neo {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-15px); }
+}
+
+.animate-bounce-neo {
+  animation: bounce-neo 2s ease-in-out infinite;
+}
+
+/* Rotate animation */
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.animate-spin-slow {
+  animation: spin-slow 20s linear infinite;
+}
+
+/* Pulse scale */
+@keyframes pulse-scale {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+.animate-pulse-scale {
+  animation: pulse-scale 3s ease-in-out infinite;
+}
+
+/* Glitch effect */
+@keyframes glitch {
+  0% { transform: translate(0); }
+  20% { transform: translate(-2px, 2px); }
+  40% { transform: translate(-2px, -2px); }
+  60% { transform: translate(2px, 2px); }
+  80% { transform: translate(2px, -2px); }
+  100% { transform: translate(0); }
+}
+
+.animate-glitch:hover {
+  animation: glitch 0.3s ease-in-out infinite;
+}
+
+/* Scroll reveal animations */
+@keyframes slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(60px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slide-left {
+  from {
+    opacity: 0;
+    transform: translateX(60px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slide-right {
+  from {
+    opacity: 0;
+    transform: translateX(-60px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes scale-in {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.animate-slide-up {
+  animation: slide-up 0.8s ease-out forwards;
+}
+
+.animate-slide-left {
+  animation: slide-left 0.8s ease-out forwards;
+}
+
+.animate-slide-right {
+  animation: slide-right 0.8s ease-out forwards;
+}
+
+.animate-scale-in {
+  animation: scale-in 0.6s ease-out forwards;
+}
+
+/* Stagger delays */
+.delay-100 { animation-delay: 0.1s; }
+.delay-200 { animation-delay: 0.2s; }
+.delay-300 { animation-delay: 0.3s; }
+.delay-400 { animation-delay: 0.4s; }
+.delay-500 { animation-delay: 0.5s; }
+
+/* Scroll triggered animations base */
+.scroll-animate {
+  opacity: 0;
+}
+
+.scroll-animate.visible {
+  opacity: 1;
+}
+
+/* Striped background pattern */
+.stripes {
+  background: repeating-linear-gradient(
+    45deg,
+    transparent,
+    transparent 10px,
+    rgba(0, 0, 0, 0.03) 10px,
+    rgba(0, 0, 0, 0.03) 20px
+  );
+}
+
+/* Dotted pattern */
+.dots-pattern {
+  background-image: radial-gradient(circle, var(--neo-black) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+/* Grid pattern */
+.grid-pattern {
+  background-image:
+    linear-gradient(var(--neo-black) 1px, transparent 1px),
+    linear-gradient(90deg, var(--neo-black) 1px, transparent 1px);
+  background-size: 40px 40px;
+  opacity: 0.1;
+}
+
+/* Squiggly underline */
+.squiggly {
+  text-decoration: underline;
+  text-decoration-style: wavy;
+  text-decoration-color: var(--neo-pink);
+  text-underline-offset: 4px;
+}
+
+/* Highlight effect */
+.highlight-yellow {
+  background: linear-gradient(180deg, transparent 60%, var(--neo-yellow) 60%);
+}
+
+.highlight-pink {
+  background: linear-gradient(180deg, transparent 60%, var(--neo-pink) 60%);
+}
+
+.highlight-blue {
+  background: linear-gradient(180deg, transparent 60%, var(--neo-blue) 60%);
+}
+
+/* Selection styling */
+::selection {
+  background: var(--neo-yellow);
+  color: var(--neo-black);
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--neo-white);
+  border-left: 3px solid var(--neo-black);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--neo-yellow);
+  border: 3px solid var(--neo-black);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--neo-pink);
+}
+
+/* Responsive typography */
+.text-display {
+  font-size: clamp(3rem, 10vw, 8rem);
+  font-weight: 900;
+  line-height: 0.9;
+  letter-spacing: -0.03em;
+}
+
+.text-heading {
+  font-size: clamp(2rem, 6vw, 4rem);
+  font-weight: 800;
+  line-height: 1;
+}
+
+.text-subheading {
+  font-size: clamp(1.25rem, 3vw, 2rem);
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+/* Wiggle animation */
+@keyframes wiggle {
+  0%, 100% { transform: rotate(-3deg); }
+  50% { transform: rotate(3deg); }
+}
+
+.animate-wiggle {
+  animation: wiggle 0.5s ease-in-out infinite;
+}
+
+/* Shake animation */
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  75% { transform: translateX(5px); }
+}
+
+.hover-shake:hover {
+  animation: shake 0.4s ease-in-out;
+}
+
+/* Card tilt effect */
+.card-tilt {
+  transform-style: preserve-3d;
+  transition: transform 0.3s ease;
+}
+
+.card-tilt:hover {
+  transform: perspective(1000px) rotateX(5deg) rotateY(-5deg);
+}
+
+/* Retro text shadow */
+.retro-shadow {
+  text-shadow:
+    3px 3px 0 var(--neo-pink),
+    6px 6px 0 var(--neo-blue);
+}
+
+.retro-shadow-sm {
+  text-shadow:
+    2px 2px 0 var(--neo-yellow),
+    4px 4px 0 var(--neo-pink);
+}
+
+/* Noise texture overlay */
+.noise-overlay::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  opacity: 0.03;
+  pointer-events: none;
+}
