@@ -6,28 +6,28 @@ import { useEffect, useRef } from "react";
 
 const services = [
   {
-    title: "QScan",
+    title: "Intelligent Frequency Wellness (QScan)",
     description: "Frequency Insight",
     color: "bg-neo-yellow",
     icon: "📊",
     href: "/services#qscan",
   },
   {
-    title: "Light & Sound",
+    title: "Light & Sound Therapy (Supertuning)",
     description: "Supertuning Therapy",
     color: "bg-neo-pink",
     icon: "✨",
     href: "/services#light-sound",
   },
   {
-    title: "Coaching",
+    title: "Coaching for Behavioral Change",
     description: "Peak Performance",
     color: "bg-neo-blue",
     icon: "🎯",
     href: "/services#coaching",
   },
   {
-    title: "Consulting",
+    title: "Business and Leadership Consulting",
     description: "Leadership Insight",
     color: "bg-neo-green",
     icon: "💼",
@@ -35,7 +35,7 @@ const services = [
   },
   {
     title: "Products",
-    description: "PROTXS Shield",
+    description: "PROTXS Shield NextGen 5G+ Shield",
     color: "bg-neo-purple",
     icon: "🛡️",
     href: "/products",
@@ -98,37 +98,42 @@ export default function Home() {
             <div className="space-y-8">
               <div className="inline-block">
                 <span className="px-6 py-3 bg-neo-yellow border-4 border-neo-black text-neo-black font-black uppercase tracking-widest text-sm animate-slide-right">
-                  ★ Bold Wellness Revolution ★
+                  ★ Elite Transformational Wellness ★
                 </span>
               </div>
 
-              <h1 className="text-display leading-none">
-                <span className="block animate-slide-up">BREAK</span>
-                <span className="block text-neo-pink animate-slide-up" style={{ animationDelay: "0.1s" }}>
-                  THE
-                </span>
-                <span className="block retro-shadow animate-slide-up" style={{ animationDelay: "0.2s" }}>
-                  MOLD
-                </span>
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-black leading-tight animate-slide-up">
+                Elite Transformational Wellness for{" "}
+                <span className="text-neo-pink">Modern Living</span>
               </h1>
 
-              <p className="text-xl md:text-2xl font-medium max-w-lg animate-slide-up" style={{ animationDelay: "0.3s" }}>
-                Where <span className="highlight-yellow">human transformation</span> meets{" "}
-                <span className="highlight-pink">intelligent frequency</span> wellness.
+              <p className="text-xl md:text-2xl font-bold animate-slide-up" style={{ animationDelay: "0.1s" }}>
+                Where <span className="highlight-yellow">Human Transformation</span> Meets{" "}
+                <span className="highlight-pink">Intelligent Frequency Wellness</span>
               </p>
 
-              <div className="flex flex-wrap gap-4 animate-slide-up" style={{ animationDelay: "0.4s" }}>
+              <p className="text-lg md:text-xl font-medium max-w-xl text-neo-black/80 animate-slide-up" style={{ animationDelay: "0.2s" }}>
+                We help wellness centers, leaders, organizations, and individuals build deeper emotional clarity, grounding, and wellbeing — using intelligent frequency insights, light & sound therapy, and powerful human coaching.
+              </p>
+
+              <div className="flex flex-wrap gap-4 animate-slide-up" style={{ animationDelay: "0.3s" }}>
                 <Link
                   href="/contact"
                   className="neo-btn px-8 py-4 bg-neo-black text-neo-white text-lg font-black uppercase"
                 >
-                  Let&apos;s Talk →
+                  Start a Conversation
                 </Link>
                 <Link
                   href="/services"
                   className="neo-btn px-8 py-4 bg-neo-yellow text-neo-black text-lg font-black uppercase"
                 >
-                  Explore
+                  Explore Services
+                </Link>
+                <Link
+                  href="/partnership"
+                  className="neo-btn px-8 py-4 bg-neo-pink text-neo-black text-lg font-black uppercase"
+                >
+                  Partner With Us
                 </Link>
               </div>
             </div>
@@ -205,40 +210,72 @@ export default function Home() {
 
       {/* Why This Matters */}
       <section className="py-24 bg-neo-yellow relative overflow-hidden">
-        <div className="absolute inset-0 stripes"></div>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+        <div className="absolute inset-0 stripes pointer-events-none"></div>
+        <div className="moving-lines pointer-events-none" style={{ zIndex: 1 }}></div>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative" style={{ zIndex: 10 }}>
           <div className="text-center mb-16 scroll-animate">
             <span className="inline-block px-6 py-2 bg-neo-black text-neo-white font-black uppercase text-sm mb-6">
-              Why It Matters
+              Why This Matters Today
             </span>
             <h2 className="text-heading">
-              People Don&apos;t Want
-              <span className="block text-neo-pink retro-shadow-sm">Boring Wellness</span>
+              People Don&apos;t Want BOOORING
+              <span className="block text-neo-pink retro-shadow-sm">Wellness Services Anymore</span>
             </h2>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 scroll-animate">
             {[
-              { title: "CLARITY", desc: "Emotional understanding & self-awareness", icon: "🔮", color: "bg-neo-white" },
-              { title: "CALM", desc: "Peace of mind & nervous system balance", icon: "🌊", color: "bg-neo-pink" },
-              { title: "CONNECTION", desc: "Feel seen, supported & truly cared for", icon: "💫", color: "bg-neo-blue" },
+              { 
+                title: "CLARITY", 
+                desc: "Emotional understanding & self-awareness", 
+                icon: "🔮", 
+                color: "bg-neo-white",
+                backTitle: "Gain Insight",
+                backDesc: "Understand your emotional patterns, identify what's holding you back, and gain the self-awareness needed to make meaningful changes in your life."
+              },
+              { 
+                title: "CALM", 
+                desc: "Peace of mind & emotional grounding", 
+                icon: "🌊", 
+                color: "bg-neo-pink",
+                backTitle: "Find Peace",
+                backDesc: "Experience deep relaxation through frequency-based therapies, light & sound sessions, and techniques that help regulate your nervous system naturally."
+              },
+              { 
+                title: "CONNECTION", 
+                desc: "Feel seen, supported & truly understood", 
+                icon: "💫", 
+                color: "bg-neo-blue",
+                backTitle: "Be Supported",
+                backDesc: "Work with practitioners who genuinely care about your wellbeing. Build authentic relationships and feel part of a community that understands your journey."
+              },
             ].map((item, index) => (
               <div
                 key={item.title}
-                className={`neo-border ${item.color} p-8 neo-hover`}
+                className="flip-card h-72 cursor-pointer"
                 style={{ animationDelay: `${index * 0.2}s` }}
               >
-                <span className="text-6xl block mb-4">{item.icon}</span>
-                <h3 className="text-2xl font-black uppercase mb-2">{item.title}</h3>
-                <p className="text-lg font-medium">{item.desc}</p>
+                <div className="flip-card-inner h-full">
+                  {/* Front */}
+                  <div className={`flip-card-front neo-border ${item.color} p-8 flex flex-col items-center justify-center text-center`}>
+                    <span className="text-6xl block mb-4">{item.icon}</span>
+                    <h3 className="text-2xl font-black uppercase mb-2">{item.title}</h3>
+                    <p className="text-lg font-medium">{item.desc}</p>
+                  </div>
+                  {/* Back */}
+                  <div className={`flip-card-back neo-border ${item.color} p-8 flex flex-col items-center justify-center text-center`}>
+                    <h3 className="text-2xl font-black uppercase mb-4">{item.backTitle}</h3>
+                    <p className="text-base font-medium leading-relaxed">{item.backDesc}</p>
+                  </div>
+                </div>
               </div>
             ))}
           </div>
 
-          <p className="mt-16 text-center text-xl font-bold max-w-2xl mx-auto scroll-animate">
-            We create wellness experiences that{" "}
+          <p className="mt-16 text-center text-xl font-bold max-w-3xl mx-auto scroll-animate">
+            We help create wellness experiences that{" "}
             <span className="highlight-pink">truly touch people</span> —
-            responsibly, ethically, and without the BS.
+            responsibly, ethically, and without exaggerated claims.
           </p>
         </div>
       </section>
@@ -251,8 +288,18 @@ export default function Home() {
               Our Arsenal
             </span>
             <h2 className="text-heading">
-              WHAT WE
-              <span className="text-neo-blue"> DO</span>
+              {"WHAT WE".split("").map((letter, i) => (
+                <span key={i} className="bounce-letter cursor-default">
+                  {letter === " " ? "\u00A0" : letter}
+                </span>
+              ))}
+              <span className="text-neo-blue">
+                {" DO".split("").map((letter, i) => (
+                  <span key={i} className="bounce-letter cursor-default">
+                    {letter === " " ? "\u00A0" : letter}
+                  </span>
+                ))}
+              </span>
             </h2>
           </div>
 
@@ -261,18 +308,18 @@ export default function Home() {
               <Link
                 key={service.title}
                 href={service.href}
-                className={`neo-border ${service.color} p-6 neo-hover group relative overflow-hidden`}
+                className={`service-card neo-border ${service.color} p-6 group relative overflow-hidden`}
                 style={{ animationDelay: `${index * 0.1}s` }}
               >
-                <div className="absolute -top-4 -right-4 text-6xl opacity-20 group-hover:opacity-40 transition-opacity">
+                <div className="bg-icon absolute -top-4 -right-4 text-6xl opacity-20">
                   {service.icon}
                 </div>
-                <span className="text-4xl block mb-4">{service.icon}</span>
-                <h3 className="text-xl font-black uppercase mb-1">{service.title}</h3>
-                <p className="text-sm font-bold opacity-70">{service.description}</p>
+                <span className="icon-bounce text-4xl block mb-4">{service.icon}</span>
+                <h3 className="text-xl font-black uppercase mb-1 group-hover:text-neo-black transition-colors">{service.title}</h3>
+                <p className="text-sm font-bold opacity-70 group-hover:opacity-100 transition-opacity">{service.description}</p>
                 <div className="mt-4 flex items-center font-bold uppercase text-sm">
-                  Explore
-                  <svg className="w-4 h-4 ml-2 group-hover:translate-x-2 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <span className="group-hover:tracking-wider transition-all">Explore</span>
+                  <svg className="w-4 h-4 ml-2 group-hover:translate-x-3 group-hover:scale-125 transition-all duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M9 5l7 7-7 7" />
                   </svg>
                 </div>

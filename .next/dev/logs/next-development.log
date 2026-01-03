@@ -1,3 +1,0 @@
-[00:00:04.353] Server  LOG     ✓ Ready in 3.4s
-[00:00:10.826] Browser WARN    Image with src "/logoum.png" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
-[00:00:10.826] Browser WARN    Image with src "/logoum.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.

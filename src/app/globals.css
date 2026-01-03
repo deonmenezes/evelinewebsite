@@ -148,6 +148,113 @@ body {
   animation: spin-slow 20s linear infinite;
 }
 
+/* 3D Flip Card */
+.flip-card {
+  perspective: 1000px;
+}
+
+.flip-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+}
+
+.flip-card:hover .flip-card-inner {
+  transform: rotateY(180deg);
+}
+
+.flip-card-front,
+.flip-card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+.flip-card-back {
+  transform: rotateY(180deg);
+}
+
+/* Service card animations */
+.service-card {
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.service-card:hover {
+  transform: translateY(-12px) rotate(-2deg);
+}
+
+.service-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, transparent 0%, rgba(255,255,255,0.4) 50%, transparent 100%);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+}
+
+.service-card:hover::before {
+  opacity: 1;
+  animation: shimmer 1.5s ease infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.service-card .icon-bounce {
+  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.service-card:hover .icon-bounce {
+  transform: scale(1.2) rotate(10deg);
+  animation: icon-wiggle 0.5s ease;
+}
+
+@keyframes icon-wiggle {
+  0%, 100% { transform: scale(1.2) rotate(10deg); }
+  25% { transform: scale(1.2) rotate(-5deg); }
+  75% { transform: scale(1.2) rotate(15deg); }
+}
+
+.service-card .bg-icon {
+  transition: all 0.5s ease;
+}
+
+.service-card:hover .bg-icon {
+  transform: scale(1.5) rotate(-15deg);
+  opacity: 0.3;
+}
+
+/* Bouncing letters animation */
+.bounce-letter {
+  display: inline-block;
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), color 0.3s ease;
+}
+
+.bounce-letter:hover {
+  animation: letter-bounce 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+  color: var(--neo-pink);
+}
+
+@keyframes letter-bounce {
+  0% { transform: translateY(0) scale(1); }
+  20% { transform: translateY(-20px) scale(1.15); }
+  40% { transform: translateY(-8px) scale(1.05); }
+  60% { transform: translateY(-14px) scale(1.1); }
+  80% { transform: translateY(-4px) scale(1.02); }
+  100% { transform: translateY(0) scale(1); }
+}
+
 /* Pulse scale */
 @keyframes pulse-scale {
   0%, 100% { transform: scale(1); }
@@ -249,15 +356,62 @@ body {
   opacity: 1;
 }
 
-/* Striped background pattern */
+/* Striped background pattern - animated */
 .stripes {
   background: repeating-linear-gradient(
     45deg,
     transparent,
     transparent 10px,
-    rgba(0, 0, 0, 0.03) 10px,
-    rgba(0, 0, 0, 0.03) 20px
+    rgba(0, 0, 0, 0.05) 10px,
+    rgba(0, 0, 0, 0.05) 20px
   );
+  background-size: 200% 200%;
+  animation: stripes-move 20s linear infinite;
+}
+
+@keyframes stripes-move {
+  0% {
+    background-position: 0% 0%;
+  }
+  100% {
+    background-position: 100% 100%;
+  }
+}
+
+/* Animated moving lines background */
+.moving-lines {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.moving-lines::before {
+  content: '';
+  position: absolute;
+  width: 200%;
+  height: 200%;
+  top: -50%;
+  left: -50%;
+  background: repeating-linear-gradient(
+    45deg,
+    transparent,
+    transparent 30px,
+    rgba(0, 0, 0, 0.04) 30px,
+    rgba(0, 0, 0, 0.04) 60px
+  );
+  animation: lines-progress 8s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes lines-progress {
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(60px, 60px);
+  }
 }
 
 /* Dotted pattern */
