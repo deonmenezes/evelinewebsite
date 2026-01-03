@@ -1,12 +1,13 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useEffect, useRef } from "react";
 
 const services = [
   {
     id: "qscan",
-    title: "QSCAN",
+    title: "QSCAN Frequency Insight",
     subtitle: "Frequency Insight",
     tagline: "See what others can't see",
     description: "A sophisticated bioenergetic insight system that explores connections between stress, emotional load, vitality, lifestyle influence and energetic balance.",
@@ -15,10 +16,11 @@ const services = [
     color: "bg-neo-yellow",
     icon: "📊",
     accent: "border-neo-yellow",
+    image: "/qs.png",
   },
   {
     id: "light-sound",
-    title: "LIGHT & SOUND",
+    title: "Light & Sound Therapy (Supertuning)",
     subtitle: "Supertuning Therapy",
     tagline: "Experience deep transformation",
     description: "A deeply calming experiential therapy using carefully tuned light and sound frequencies to support emotional balance and inner alignment.",
@@ -27,10 +29,11 @@ const services = [
     color: "bg-neo-pink",
     icon: "✨",
     accent: "border-neo-pink",
+    image: "/ls.png",
   },
   {
     id: "coaching",
-    title: "COACHING",
+    title: "Coaching for Behavioral Change, Wellbeing & Peak Performance",
     subtitle: "Peak Performance",
     tagline: "Unlock your potential",
     description: "For individuals and corporate clients. We help people understand themselves better, build emotional resilience, break unhelpful patterns, and feel grounded and confident.",
@@ -39,10 +42,11 @@ const services = [
     color: "bg-neo-blue",
     icon: "🎯",
     accent: "border-neo-blue",
+    image: "/cs.png",
   },
   {
     id: "consulting",
-    title: "CONSULTING",
+    title: "Business & Leadership Consulting (Powered by Quantum Insight)",
     subtitle: "Quantum Leadership",
     tagline: "Lead with clarity",
     description: "For organizations and leadership teams who want clarity, direction, and emotionally healthier environments.",
@@ -51,6 +55,7 @@ const services = [
     color: "bg-neo-green",
     icon: "💼",
     accent: "border-neo-green",
+    image: "/bs.png",
   },
 ];
 
@@ -91,8 +96,8 @@ export default function ServicesPage() {
               Our Arsenal
             </span>
             <h1 className="text-display text-neo-white leading-none">
-              PREMIUM
-              <span className="block text-neo-yellow">TRANSFORMATION</span>
+              A PREMIUM SUITE OF HUMAN
+              <span className="block gradient-text-animate">TRANSFORMATION</span>
               <span className="block">SERVICES</span>
             </h1>
             <p className="mt-8 text-2xl font-bold text-neo-white/80 max-w-2xl">
@@ -116,17 +121,31 @@ export default function ServicesPage() {
               >
                 {/* Visual Card */}
                 <div className={`${index % 2 === 1 ? "lg:order-2" : ""}`}>
-                  <div className={`neo-border-thick ${service.color} p-12 relative`}>
-                    <div className="absolute -top-8 -right-8 w-24 h-24 bg-neo-black border-4 border-neo-black flex items-center justify-center text-4xl animate-float">
+                  <div className={`neo-border-thick ${service.color} p-12 relative overflow-hidden`}>
+                    <div className="absolute -top-8 -right-8 w-24 h-24 bg-neo-black border-4 border-neo-black flex items-center justify-center text-4xl animate-float z-10">
                       {service.icon}
                     </div>
-                    <span className="text-[120px] leading-none font-black opacity-20">
-                      {String(index + 1).padStart(2, "0")}
-                    </span>
-                    <div className="mt-4">
-                      <h3 className="text-4xl font-black uppercase">{service.title}</h3>
-                      <p className="text-xl font-bold mt-2">{service.subtitle}</p>
-                    </div>
+                    {service.image ? (
+                      <div className="relative">
+                        <Image
+                          src={service.image}
+                          alt={service.title}
+                          width={600}
+                          height={400}
+                          className="w-full h-auto rounded-lg border-4 border-neo-black"
+                        />
+                      </div>
+                    ) : (
+                      <>
+                        <span className="text-[120px] leading-none font-black opacity-20">
+                          {String(index + 1).padStart(2, "0")}
+                        </span>
+                        <div className="mt-4">
+                          <h3 className="text-4xl font-black uppercase">{service.title}</h3>
+                          <p className="text-xl font-bold mt-2">{service.subtitle}</p>
+                        </div>
+                      </>
+                    )}
                   </div>
                 </div>
 

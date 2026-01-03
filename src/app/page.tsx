@@ -2,7 +2,55 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+
+// Counter animation hook
+function useCountUp(end: number, duration: number = 2000, start: boolean = false) {
+  const [count, setCount] = useState(0);
+  
+  useEffect(() => {
+    if (!start) return;
+    
+    let startTime: number | null = null;
+    let animationFrame: number;
+    
+    const animate = (timestamp: number) => {
+      if (!startTime) startTime = timestamp;
+      const progress = Math.min((timestamp - startTime) / duration, 1);
+      
+      // Easing function for smooth animation
+      const easeOutQuart = 1 - Math.pow(1 - progress, 4);
+      setCount(Math.floor(easeOutQuart * end));
+      
+      if (progress < 1) {
+        animationFrame = requestAnimationFrame(animate);
+      }
+    };
+    
+    animationFrame = requestAnimationFrame(animate);
+    return () => cancelAnimationFrame(animationFrame);
+  }, [end, duration, start]);
+  
+  return count;
+}
+
+// Counter component
+function AnimatedStat({ number, label, color, inView }: { number: string; label: string; color: string; inView: boolean }) {
+  const numericValue = parseInt(number.replace(/[^0-9]/g, ''));
+  const suffix = number.replace(/[0-9]/g, '');
+  const count = useCountUp(numericValue, 2000, inView);
+  
+  return (
+    <div className="text-center">
+      <span className={`text-5xl md:text-6xl font-black ${color}`}>
+        {count}{suffix}
+      </span>
+      <p className="text-neo-white font-bold uppercase tracking-wider mt-2">
+        {label}
+      </p>
+    </div>
+  );
+}
 
 const services = [
   {
@@ -43,10 +91,11 @@ const services = [
 ];
 
 const audiences = [
-  { title: "Wellness Centers", emoji: "🏢", color: "bg-neo-yellow" },
-  { title: "Practitioners", emoji: "❤️", color: "bg-neo-pink" },
-  { title: "Leaders", emoji: "👔", color: "bg-neo-blue" },
-  { title: "Individuals", emoji: "🧘", color: "bg-neo-green" },
+  { title: "Premium Wellness Centers", emoji: "🏢", color: "bg-neo-yellow" },
+  { title: "Holistic & Integrative Practitioners", emoji: "❤️", color: "bg-neo-pink" },
+  { title: "Coaches & Transformation Professionals", emoji: "👔", color: "bg-neo-blue" },
+  { title: "Business Leaders & Organizations", emoji: "💼", color: "bg-neo-green" },
+  { title: "Individuals seeking grounding, clarity & inner balance", emoji: "🧘", color: "bg-neo-red" },
 ];
 
 const stats = [
@@ -55,6 +104,49 @@ const stats = [
   { number: "50+", label: "Partners", color: "text-neo-blue" },
   { number: "100%", label: "Commitment", color: "text-neo-green" },
 ];
+
+// Stats grid with intersection observer
+function StatsGrid({ stats }: { stats: Array<{ number: string; label: string; color: string }> }) {
+  const [inView, setInView] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setInView(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.3 }
+    );
+
+    if (ref.current) {
+      observer.observe(ref.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <div ref={ref} className="grid grid-cols-2 md:grid-cols-4 gap-8">
+      {stats.map((stat, index) => (
+        <div
+          key={stat.label}
+          className="scroll-animate"
+          style={{ animationDelay: `${index * 0.1}s` }}
+        >
+          <AnimatedStat
+            number={stat.number}
+            label={stat.label}
+            color={stat.color}
+            inView={inView}
+          />
+        </div>
+      ))}
+    </div>
+  );
+}
 
 export default function Home() {
   const observerRef = useRef<IntersectionObserver | null>(null);
@@ -327,6 +419,33 @@ export default function Home() {
             ))}
           </div>
 
+          {/* Value Buttons */}
+          <div className="mt-16 scroll-animate">
+            <div className="flex flex-wrap justify-center gap-6">
+              <div className="value-btn neo-border px-8 py-5 bg-neo-yellow flex items-center gap-4 cursor-default">
+                <span className="btn-icon text-3xl">⭐</span>
+                <div>
+                  <h4 className="text-xl font-black uppercase">Premium</h4>
+                  <p className="text-xs font-bold opacity-70">Excellence in every detail</p>
+                </div>
+              </div>
+              <div className="value-btn neo-border px-8 py-5 bg-neo-green flex items-center gap-4 cursor-default">
+                <span className="btn-icon text-3xl">🛡️</span>
+                <div>
+                  <h4 className="text-xl font-black uppercase">Responsible</h4>
+                  <p className="text-xs font-bold opacity-70">Ethical & transparent</p>
+                </div>
+              </div>
+              <div className="value-btn neo-border px-8 py-5 bg-neo-pink flex items-center gap-4 cursor-default">
+                <span className="btn-icon text-3xl">💜</span>
+                <div>
+                  <h4 className="text-xl font-black uppercase">Human</h4>
+                  <p className="text-xs font-bold opacity-70">Real connection & care</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
           <div className="mt-12 text-center scroll-animate">
             <Link
               href="/services"
@@ -341,22 +460,7 @@ export default function Home() {
       {/* Stats Section */}
       <section className="py-16 bg-neo-black">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            {stats.map((stat, index) => (
-              <div
-                key={stat.label}
-                className="text-center scroll-animate"
-                style={{ animationDelay: `${index * 0.1}s` }}
-              >
-                <span className={`text-5xl md:text-6xl font-black ${stat.color}`}>
-                  {stat.number}
-                </span>
-                <p className="text-neo-white font-bold uppercase tracking-wider mt-2">
-                  {stat.label}
-                </p>
-              </div>
-            ))}
-          </div>
+          <StatsGrid stats={stats} />
         </div>
       </section>
 
@@ -379,14 +483,20 @@ export default function Home() {
               <Link
                 key={audience.title}
                 href="/who-we-serve"
-                className={`neo-border ${audience.color} p-8 neo-hover text-center group`}
+                className={`audience-card neo-border ${audience.color} p-8 text-center group`}
                 style={{ animationDelay: `${index * 0.15}s` }}
               >
-                <span className="text-6xl block mb-4 group-hover:animate-wiggle">
+                {/* Particles */}
+                <span className="particle" style={{ top: '20%', left: '20%', ['--tx' as string]: '-40px', ['--ty' as string]: '-60px' }}></span>
+                <span className="particle" style={{ top: '30%', right: '20%', ['--tx' as string]: '50px', ['--ty' as string]: '-40px' }}></span>
+                <span className="particle" style={{ bottom: '30%', left: '30%', ['--tx' as string]: '-30px', ['--ty' as string]: '50px' }}></span>
+                
+                <div className="card-shine"></div>
+                <span className="emoji-pop text-6xl block mb-4 relative z-10">
                   {audience.emoji}
                 </span>
-                <h3 className="text-xl font-black uppercase">{audience.title}</h3>
-                <div className="mt-4 w-full h-1 bg-neo-black transform scale-x-0 group-hover:scale-x-100 transition-transform"></div>
+                <h3 className="text-xl font-black uppercase relative z-10">{audience.title}</h3>
+                <div className="underline-flash mt-4 w-full h-2 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></div>
               </Link>
             ))}
           </div>
@@ -396,6 +506,23 @@ export default function Home() {
       {/* Responsibility Promise */}
       <section className="py-24 bg-neo-white relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Section Header */}
+          <div className="text-center mb-16 scroll-animate">
+            <span className="inline-block px-6 py-2 bg-neo-green text-neo-black font-black uppercase text-sm mb-6 border-4 border-neo-black">
+              Our Promise
+            </span>
+            <h2 className="text-heading mb-4">
+              OUR RESPONSIBILITY
+              <span className="block text-neo-green">AND OUR PROMISE</span>
+            </h2>
+            <p className="text-2xl font-black uppercase tracking-wide text-neo-black/80 mb-4">
+              We work with integrity.
+            </p>
+            <p className="text-lg font-medium max-w-2xl mx-auto text-neo-black/70">
+              Our work supports <span className="highlight-yellow">awareness</span>, <span className="highlight-pink">emotional wellbeing</span>, and <span className="highlight-blue">personal clarity</span>.
+            </p>
+          </div>
+
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
             {/* Left - We DO */}
             <div className="neo-border-thick bg-neo-green p-10 scroll-animate">
@@ -410,9 +537,16 @@ export default function Home() {
                   "Facilitate real transformation",
                   "Encourage better wellbeing journeys",
                   "Communicate honestly & respectfully",
-                ].map((item) => (
-                  <li key={item} className="flex items-center gap-4 text-lg font-bold">
-                    <span className="w-8 h-8 bg-neo-black text-neo-white flex items-center justify-center flex-shrink-0">
+                ].map((item, index) => (
+                  <li 
+                    key={item} 
+                    className="list-item-animate flex items-center gap-4 text-lg font-bold"
+                    style={{ animationDelay: `${index * 0.15}s` }}
+                  >
+                    <span 
+                      className="check-icon w-8 h-8 bg-neo-black text-neo-white flex items-center justify-center shrink-0"
+                      style={{ animationDelay: `${index * 0.15 + 0.2}s` }}
+                    >
                       ✓
                     </span>
                     {item}
@@ -433,9 +567,16 @@ export default function Home() {
                   "Treat illness or disease",
                   "Promise miracle cures",
                   "Replace medical care",
-                ].map((item) => (
-                  <li key={item} className="flex items-center gap-4 text-lg font-bold text-neo-black/60">
-                    <span className="w-8 h-8 bg-neo-red/20 text-neo-red flex items-center justify-center flex-shrink-0">
+                ].map((item, index) => (
+                  <li 
+                    key={item} 
+                    className="list-item-animate flex items-center gap-4 text-lg font-bold text-neo-black/60"
+                    style={{ animationDelay: `${index * 0.15 + 0.3}s` }}
+                  >
+                    <span 
+                      className="check-icon w-8 h-8 bg-neo-red/20 text-neo-red flex items-center justify-center shrink-0"
+                      style={{ animationDelay: `${index * 0.15 + 0.5}s` }}
+                    >
                       ✗
                     </span>
                     {item}
