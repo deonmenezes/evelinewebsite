@@ -1,4 +1,12 @@
 {
+  "/_not-found/page": "app/_not-found/page.js",
+  "/ethics/page": "app/ethics/page.js",
+  "/contact/page": "app/contact/page.js",
+  "/partnership/page": "app/partnership/page.js",
   "/page": "app/page.js",
-  "/services/page": "app/services/page.js"
+  "/products/page": "app/products/page.js",
+  "/about/page": "app/about/page.js",
+  "/services/page": "app/services/page.js",
+  "/faq/page": "app/faq/page.js",
+  "/who-we-serve/page": "app/who-we-serve/page.js"
 }
