@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 
 interface FAQItem {
@@ -73,15 +73,18 @@ const faqSections: FAQSection[] = [
   },
 ];
 
-function AccordionItem({ item, isOpen, onToggle, color }: { item: FAQItem; isOpen: boolean; onToggle: () => void; color: string }) {
+function AccordionItem({ item, isOpen, onToggle, color, index }: { item: FAQItem; isOpen: boolean; onToggle: () => void; color: string; index: number }) {
   return (
-    <div className={`border-4 border-neo-black ${isOpen ? color : "bg-neo-white"} transition-colors`}>
+    <div 
+      className={`border-4 border-neo-black ${isOpen ? color : "bg-neo-white"} transition-all duration-300 hover:shadow-[6px_6px_0_0_rgba(0,0,0,1)] hover:-translate-y-1`}
+      style={{ animationDelay: `${index * 100}ms` }}
+    >
       <button
-        className="w-full p-6 text-left flex items-center justify-between font-bold text-lg"
+        className="w-full p-6 text-left flex items-center justify-between font-bold text-lg group"
         onClick={onToggle}
       >
-        <span className="pr-8">{item.question}</span>
-        <span className={`w-10 h-10 border-3 border-neo-black flex items-center justify-center text-2xl font-black transition-all ${isOpen ? "bg-neo-black text-neo-white rotate-45" : "bg-neo-white"}`}>
+        <span className="pr-8 group-hover:translate-x-2 transition-transform">{item.question}</span>
+        <span className={`w-10 h-10 border-3 border-neo-black flex items-center justify-center text-2xl font-black transition-all duration-300 ${isOpen ? "bg-neo-black text-neo-white rotate-45" : "bg-neo-white group-hover:bg-neo-yellow"}`}>
           +
         </span>
       </button>
@@ -92,14 +95,14 @@ function AccordionItem({ item, isOpen, onToggle, color }: { item: FAQItem; isOpe
   );
 }
 
-function FAQSectionComponent({ section }: { section: FAQSection }) {
+function FAQSectionComponent({ section, isVisible }: { section: FAQSection; isVisible: boolean }) {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   return (
-    <div id={section.id} className="scroll-mt-24">
-      <div className={`neo-border ${section.color} p-6 mb-6`}>
+    <div id={section.id} className={`scroll-mt-24 transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}>
+      <div className={`neo-border ${section.color} p-6 mb-6 hover:shadow-[8px_8px_0_0_rgba(0,0,0,1)] hover:-translate-y-1 transition-all duration-300 group`}>
         <div className="flex items-center gap-4">
-          <span className="text-4xl">{section.emoji}</span>
+          <span className="text-4xl group-hover:animate-bounce-neo">{section.emoji}</span>
           <h3 className="text-2xl font-black uppercase">{section.title}</h3>
         </div>
       </div>
@@ -111,6 +114,7 @@ function FAQSectionComponent({ section }: { section: FAQSection }) {
             isOpen={openIndex === index}
             onToggle={() => setOpenIndex(openIndex === index ? null : index)}
             color={section.color}
+            index={index}
           />
         ))}
       </div>
@@ -119,24 +123,59 @@ function FAQSectionComponent({ section }: { section: FAQSection }) {
 }
 
 export default function FAQPage() {
+  const [heroVisible, setHeroVisible] = useState(false);
+  const [visibleSections, setVisibleSections] = useState<Set<string>>(new Set());
+  const observerRef = useRef<IntersectionObserver | null>(null);
+
+  useEffect(() => {
+    setHeroVisible(true);
+
+    observerRef.current = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const sectionId = entry.target.getAttribute('data-section-id');
+            if (sectionId) {
+              setVisibleSections(prev => new Set(prev).add(sectionId));
+            }
+            entry.target.classList.add('animate-slide-up');
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+
+    document.querySelectorAll('.faq-section').forEach((el) => {
+      observerRef.current?.observe(el);
+    });
+
+    return () => observerRef.current?.disconnect();
+  }, []);
+
   return (
     <div className="bg-neo-white pt-20">
       {/* Hero */}
-      <section className="py-24 bg-neo-cyan relative overflow-hidden">
+      <section className="py-24 bg-neo-cyan relative">
         <div className="absolute inset-0 dots-pattern opacity-20"></div>
-        <div className="absolute top-10 right-10 w-32 h-32 border-8 border-neo-black rotate-12 hidden lg:block animate-float"></div>
+        <div className="absolute top-10 right-10 w-32 h-32 border-8 border-neo-black rotate-12 hidden lg:block animate-spin-slow"></div>
+        
+        {/* Floating decorative elements */}
+        <div className="absolute top-20 left-10 w-16 h-16 bg-neo-yellow neo-border animate-float opacity-80"></div>
+        <div className="absolute bottom-20 right-20 w-20 h-20 bg-neo-pink neo-border animate-bounce-neo opacity-80 hidden md:block"></div>
+        <div className="absolute top-1/2 left-[5%] w-10 h-10 bg-neo-purple neo-border rotate-45 animate-float hidden lg:block" style={{ animationDelay: '0.5s' }}></div>
+        <div className="absolute bottom-10 left-1/4 w-12 h-12 border-4 border-neo-black rounded-full animate-bounce-neo hidden lg:block" style={{ animationDelay: '0.3s' }}></div>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
           <div className="max-w-4xl">
-            <span className="inline-block px-6 py-3 bg-neo-black text-neo-white font-black uppercase text-sm mb-6">
+            <span className={`inline-block px-6 py-3 bg-neo-black text-neo-white font-black uppercase text-sm mb-6 transition-all duration-700 ${heroVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
               Got Questions?
             </span>
-            <h1 className="text-display text-neo-black leading-none">
-              FREQUENTLY
-              <span className="block text-neo-white">ASKED</span>
-              <span className="block">QUESTIONS</span>
+            <h1 className="text-display text-neo-black leading-tight">
+              <span className={`block transition-all duration-700 delay-100 ${heroVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-12'}`}>FREQUENTLY</span>
+              <span className={`block hero-gradient-text py-2 transition-all duration-700 delay-200 ${heroVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-12'}`}>ASKED</span>
+              <span className={`block transition-all duration-700 delay-300 ${heroVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-12'}`}>QUESTIONS</span>
             </h1>
-            <p className="mt-8 text-2xl font-bold text-neo-black/80">
+            <p className={`mt-8 text-2xl font-bold text-neo-black/80 transition-all duration-700 delay-500 ${heroVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
               Clarity. Honesty. No BS.
             </p>
           </div>
@@ -144,11 +183,22 @@ export default function FAQPage() {
       </section>
 
       {/* FAQ Sections */}
-      <section className="py-24">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="py-24 relative">
+        {/* Background gradient orb */}
+        <div className="absolute top-1/4 right-0 w-96 h-96 bg-gradient-to-r from-neo-cyan/10 to-neo-pink/10 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-1/4 left-0 w-80 h-80 bg-gradient-to-r from-neo-yellow/10 to-neo-green/10 rounded-full blur-3xl"></div>
+        
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative">
           <div className="space-y-16">
-            {faqSections.map((section) => (
-              <FAQSectionComponent key={section.id} section={section} />
+            {faqSections.map((section, index) => (
+              <div 
+                key={section.id} 
+                className="faq-section" 
+                data-section-id={section.id}
+                style={{ transitionDelay: `${index * 150}ms` }}
+              >
+                <FAQSectionComponent section={section} isVisible={visibleSections.has(section.id)} />
+              </div>
             ))}
           </div>
         </div>
@@ -157,18 +207,24 @@ export default function FAQPage() {
       {/* CTA */}
       <section className="py-24 bg-neo-yellow relative overflow-hidden">
         <div className="absolute inset-0 stripes opacity-30"></div>
+        
+        {/* Floating elements */}
+        <div className="absolute top-10 left-10 w-20 h-20 border-4 border-neo-black rotate-12 animate-spin-slow opacity-60"></div>
+        <div className="absolute bottom-10 right-10 w-16 h-16 bg-neo-pink neo-border animate-float opacity-70"></div>
+        
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-          <div className="neo-border-thick bg-neo-white p-12 text-center">
-            <span className="text-6xl block mb-6">💬</span>
+          <div className="neo-border-thick bg-neo-white p-12 text-center hover:shadow-[16px_16px_0_0_rgba(0,0,0,1)] hover:-translate-y-2 transition-all duration-300 group">
+            <span className="text-6xl block mb-6 group-hover:animate-bounce-neo">💬</span>
             <h2 className="text-heading mb-4">STILL HAVE QUESTIONS?</h2>
             <p className="text-xl font-bold mb-8">
               That&apos;s totally cool. Let&apos;s talk and figure it out together.
             </p>
             <Link
               href="/contact"
-              className="neo-btn px-10 py-5 bg-neo-black text-neo-white text-xl font-black uppercase inline-block"
+              className="neo-btn px-10 py-5 bg-neo-black text-neo-white text-xl font-black uppercase inline-block hover:bg-neo-cyan hover:text-neo-black hover:scale-105 hover:-rotate-1 transition-all duration-300 relative overflow-hidden group/btn"
             >
-              Start a Conversation →
+              <span className="relative z-10">Start a Conversation →</span>
+              <span className="absolute inset-0 bg-neo-pink -translate-x-full group-hover/btn:translate-x-0 transition-transform duration-300"></span>
             </Link>
           </div>
         </div>

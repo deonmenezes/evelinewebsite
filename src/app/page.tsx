@@ -150,8 +150,12 @@ function StatsGrid({ stats }: { stats: Array<{ number: string; label: string; co
 
 export default function Home() {
   const observerRef = useRef<IntersectionObserver | null>(null);
+  const [heroVisible, setHeroVisible] = useState(false);
+  const [logoHovered, setLogoHovered] = useState(false);
 
   useEffect(() => {
+    setHeroVisible(true);
+    
     observerRef.current = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -177,80 +181,98 @@ export default function Home() {
       <section className="min-h-screen pt-24 relative overflow-hidden">
         {/* Background Pattern */}
         <div className="absolute inset-0 dots-pattern opacity-30"></div>
+        
+        {/* Animated gradient orbs */}
+        <div className="absolute top-20 left-1/4 w-96 h-96 bg-gradient-to-r from-neo-yellow/20 to-neo-pink/20 rounded-full blur-3xl animate-float"></div>
+        <div className="absolute bottom-20 right-1/4 w-80 h-80 bg-gradient-to-r from-neo-blue/20 to-neo-green/20 rounded-full blur-3xl animate-bounce-neo" style={{ animationDelay: '1s' }}></div>
 
-        {/* Floating Shapes */}
-        <div className="absolute top-32 left-10 w-20 h-20 bg-neo-yellow border-4 border-neo-black rotate-12 animate-float hidden lg:block"></div>
-        <div className="absolute top-48 right-20 w-16 h-16 bg-neo-pink border-4 border-neo-black -rotate-12 animate-float hidden lg:block" style={{ animationDelay: "1s" }}></div>
-        <div className="absolute bottom-40 left-1/4 w-12 h-12 bg-neo-blue border-4 border-neo-black rotate-45 animate-float hidden lg:block" style={{ animationDelay: "2s" }}></div>
-        <div className="absolute bottom-60 right-1/4 w-24 h-24 border-4 border-neo-black bg-neo-green rotate-6 animate-float hidden lg:block" style={{ animationDelay: "0.5s" }}></div>
+        {/* Floating Shapes with enhanced animations */}
+        <div className="absolute top-32 left-10 w-20 h-20 bg-neo-yellow border-4 border-neo-black rotate-12 animate-float hidden lg:block hover:scale-125 transition-transform"></div>
+        <div className="absolute top-48 right-20 w-16 h-16 bg-neo-pink border-4 border-neo-black -rotate-12 animate-float hidden lg:block hover:scale-125 transition-transform" style={{ animationDelay: "1s" }}></div>
+        <div className="absolute bottom-40 left-1/4 w-12 h-12 bg-neo-blue border-4 border-neo-black rotate-45 animate-float hidden lg:block hover:scale-125 transition-transform" style={{ animationDelay: "2s" }}></div>
+        <div className="absolute bottom-60 right-1/4 w-24 h-24 border-4 border-neo-black bg-neo-green rotate-6 animate-float hidden lg:block hover:scale-125 transition-transform" style={{ animationDelay: "0.5s" }}></div>
+        <div className="absolute top-1/3 left-5 w-8 h-8 bg-neo-purple border-4 border-neo-black animate-spin-slow hidden lg:block"></div>
+        <div className="absolute bottom-1/3 right-5 w-10 h-10 border-4 border-neo-black rounded-full animate-bounce-neo hidden lg:block" style={{ animationDelay: '0.7s' }}></div>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 relative">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             {/* Left Content */}
             <div className="space-y-8">
               <div className="inline-block">
-                <span className="px-6 py-3 bg-neo-yellow border-4 border-neo-black text-neo-black font-black uppercase tracking-widest text-sm animate-slide-right">
+                <span className={`px-6 py-3 bg-neo-yellow border-4 border-neo-black text-neo-black font-black uppercase tracking-widest text-sm transition-all duration-700 inline-block ${heroVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
                   ★ Elite Transformational Wellness ★
                 </span>
               </div>
 
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-black leading-tight animate-slide-up">
-                Elite Transformational Wellness for{" "}
-                <span className="text-neo-pink">Modern Living</span>
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-black leading-tight">
+                <span className={`block transition-all duration-700 delay-100 ${heroVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-12'}`}>
+                  Elite Transformational
+                </span>
+                <span className={`block transition-all duration-700 delay-200 ${heroVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-12'}`}>
+                  Wellness for{" "}
+                </span>
+                <span className={`block hero-gradient-text py-2 transition-all duration-700 delay-300 ${heroVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-12'}`}>
+                  Modern Living
+                </span>
               </h1>
 
-              <p className="text-xl md:text-2xl font-bold animate-slide-up" style={{ animationDelay: "0.1s" }}>
+              <p className={`text-xl md:text-2xl font-bold transition-all duration-700 delay-400 ${heroVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
                 Where <span className="highlight-yellow">Human Transformation</span> Meets{" "}
                 <span className="highlight-pink">Intelligent Frequency Wellness</span>
               </p>
 
-              <p className="text-lg md:text-xl font-medium max-w-xl text-neo-black/80 animate-slide-up" style={{ animationDelay: "0.2s" }}>
+              <p className={`text-lg md:text-xl font-medium max-w-xl text-neo-black/80 transition-all duration-700 delay-500 ${heroVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
                 We help wellness centers, leaders, organizations, and individuals build deeper emotional clarity, grounding, and wellbeing — using intelligent frequency insights, light & sound therapy, and powerful human coaching.
               </p>
 
-              <div className="flex flex-wrap gap-4 animate-slide-up" style={{ animationDelay: "0.3s" }}>
+              <div className={`flex flex-wrap gap-4 transition-all duration-700 delay-[600ms] ${heroVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
                 <Link
                   href="/contact"
-                  className="neo-btn px-8 py-4 bg-neo-black text-neo-white text-lg font-black uppercase"
+                  className="neo-btn px-8 py-4 bg-neo-black text-neo-white text-lg font-black uppercase hover:bg-neo-pink hover:text-neo-black hover:scale-105 hover:-rotate-1 transition-all duration-300 relative overflow-hidden group"
                 >
-                  Start a Conversation
+                  <span className="relative z-10">Start a Conversation</span>
+                  <span className="absolute inset-0 bg-neo-yellow -translate-x-full group-hover:translate-x-0 transition-transform duration-300"></span>
                 </Link>
                 <Link
                   href="/services"
-                  className="neo-btn px-8 py-4 bg-neo-yellow text-neo-black text-lg font-black uppercase"
+                  className="neo-btn px-8 py-4 bg-neo-yellow text-neo-black text-lg font-black uppercase hover:bg-neo-blue hover:scale-105 hover:rotate-1 transition-all duration-300"
                 >
                   Explore Services
                 </Link>
                 <Link
                   href="/partnership"
-                  className="neo-btn px-8 py-4 bg-neo-pink text-neo-black text-lg font-black uppercase"
+                  className="neo-btn px-8 py-4 bg-neo-pink text-neo-black text-lg font-black uppercase hover:bg-neo-green hover:scale-105 hover:-rotate-1 transition-all duration-300"
                 >
                   Partner With Us
                 </Link>
               </div>
             </div>
 
-            {/* Right Content - Hero Image/Card */}
-            <div className="relative animate-scale-in" style={{ animationDelay: "0.5s" }}>
-              <div className="neo-border-thick bg-neo-white p-8 relative">
-                <div className="absolute -top-6 -right-6 w-24 h-24 bg-neo-pink border-4 border-neo-black flex items-center justify-center animate-spin-slow">
+            {/* Right Content - Hero Image/Card with hover animations */}
+            <div 
+              className={`relative transition-all duration-1000 delay-300 ${heroVisible ? 'opacity-100 translate-y-0 rotate-0' : 'opacity-0 translate-y-12 rotate-6'}`}
+              onMouseEnter={() => setLogoHovered(true)}
+              onMouseLeave={() => setLogoHovered(false)}
+            >
+              <div className={`neo-border-thick bg-neo-white p-8 relative transition-all duration-500 ${logoHovered ? 'shadow-[16px_16px_0_0_rgba(0,0,0,1)] -translate-y-4 -translate-x-2' : ''}`}>
+                <div className={`absolute -top-6 -right-6 w-24 h-24 bg-neo-pink border-4 border-neo-black flex items-center justify-center transition-all duration-500 ${logoHovered ? 'animate-spin-slow scale-110' : 'animate-spin-slow'}`}>
                   <span className="text-4xl">★</span>
                 </div>
 
-                <div className="relative w-full aspect-square bg-gradient-to-br from-neo-yellow via-neo-pink to-neo-blue border-4 border-neo-black">
-                  <div className="absolute inset-4 bg-neo-white border-4 border-neo-black flex items-center justify-center">
+                <div className={`relative w-full aspect-square bg-gradient-to-br from-neo-yellow via-neo-pink to-neo-blue border-4 border-neo-black transition-all duration-500 ${logoHovered ? 'scale-[1.02]' : ''}`}>
+                  <div className={`absolute inset-4 bg-neo-white border-4 border-neo-black flex items-center justify-center transition-all duration-500 ${logoHovered ? 'bg-neo-yellow/10' : ''}`}>
                     <div className="text-center">
                       <Image
                         src="/logoum.png"
                         alt="Dorksense Logo"
                         width={150}
                         height={150}
-                        className="mx-auto"
+                        className={`mx-auto transition-all duration-500 ${logoHovered ? 'scale-110 rotate-6' : ''}`}
                       />
-                      <p className="mt-4 text-2xl font-black uppercase">
-                        DORK<span className="text-neo-pink">SENSE</span>
+                      <p className={`mt-4 text-2xl font-black uppercase transition-all duration-300 ${logoHovered ? 'tracking-wider' : ''}`}>
+                        DORK<span className={`transition-colors duration-300 ${logoHovered ? 'text-neo-blue' : 'text-neo-pink'}`}>SENSE</span>
                       </p>
-                      <p className="text-sm font-bold text-neo-black/60 uppercase tracking-widest">
+                      <p className={`text-sm font-bold text-neo-black/60 uppercase tracking-widest transition-all duration-300 ${logoHovered ? 'text-neo-black' : ''}`}>
                         Est. 2024
                       </p>
                     </div>
@@ -261,22 +283,28 @@ export default function Home() {
                   {["Bold", "Human", "Real"].map((tag, i) => (
                     <span
                       key={tag}
-                      className={`px-4 py-2 border-3 border-neo-black font-bold uppercase text-sm ${
+                      className={`px-4 py-2 border-3 border-neo-black font-bold uppercase text-sm transition-all duration-300 hover:scale-110 hover:-rotate-3 cursor-default ${
                         i === 0 ? "bg-neo-yellow" : i === 1 ? "bg-neo-pink" : "bg-neo-blue"
-                      }`}
+                      } ${logoHovered ? 'translate-y-1' : ''}`}
+                      style={{ transitionDelay: `${i * 50}ms` }}
                     >
                       {tag}
                     </span>
                   ))}
                 </div>
+                
+                {/* Floating particles on hover */}
+                <div className={`absolute -top-4 -left-4 w-8 h-8 bg-neo-yellow border-2 border-neo-black transition-all duration-500 ${logoHovered ? 'opacity-100 -translate-x-4 -translate-y-4 rotate-45' : 'opacity-0'}`}></div>
+                <div className={`absolute -bottom-4 -right-4 w-6 h-6 bg-neo-blue border-2 border-neo-black rounded-full transition-all duration-500 ${logoHovered ? 'opacity-100 translate-x-4 translate-y-4' : 'opacity-0'}`}></div>
+                <div className={`absolute top-1/2 -right-6 w-4 h-4 bg-neo-green border-2 border-neo-black transition-all duration-500 ${logoHovered ? 'opacity-100 translate-x-6 rotate-12' : 'opacity-0'}`}></div>
               </div>
             </div>
           </div>
         </div>
 
         {/* Scroll Indicator */}
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce-neo">
-          <div className="w-12 h-20 border-4 border-neo-black bg-neo-white flex flex-col items-center pt-2">
+        <div className={`absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce-neo transition-all duration-700 delay-[800ms] ${heroVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+          <div className="w-12 h-20 border-4 border-neo-black bg-neo-white flex flex-col items-center pt-2 hover:bg-neo-yellow transition-colors">
             <div className="w-2 h-6 bg-neo-black animate-bounce"></div>
             <span className="text-xs font-bold mt-2 rotate-90">SCROLL</span>
           </div>
