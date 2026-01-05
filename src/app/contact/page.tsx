@@ -214,7 +214,7 @@ export default function ContactPage() {
               <div className="neo-border bg-neo-pink p-8">
                 <span className="text-4xl block mb-4">📧</span>
                 <h3 className="text-xl font-black uppercase mb-2">Email Us</h3>
-                <p className="text-lg font-bold">hello@dorksense.com</p>
+                <p className="text-lg font-bold">contact@umm.global</p>
               </div>
 
               <div className="neo-border bg-neo-blue p-8">
