@@ -20,6 +20,7 @@ const footerLinks = {
     { name: "Products", href: "/products" },
     { name: "FAQ", href: "/faq" },
     { name: "Contact", href: "/contact" },
+    { name: "Customer Service", href: "https://mail.google.com/mail/?view=cm&fs=1&to=contact@umm.global" },
   ],
 };
 
