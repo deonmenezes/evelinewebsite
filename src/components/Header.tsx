@@ -44,14 +44,11 @@ export default function Header() {
             <div className="relative w-12 h-12 neo-border-sm bg-neo-white overflow-hidden group-hover:translate-x-[-2px] group-hover:translate-y-[-2px] group-hover:shadow-[7px_7px_0_0_#0a0a0a] transition-all">
               <Image
                 src="/logoum.png"
-                alt="Dorksense Logo"
+                alt="Logo"
                 fill
                 className="object-contain p-1"
               />
             </div>
-            <span className="text-2xl font-black uppercase tracking-tight hidden sm:block">
-              DORK<span className="text-neo-pink">SENSE</span>
-            </span>
           </Link>
 
           {/* Desktop Navigation */}

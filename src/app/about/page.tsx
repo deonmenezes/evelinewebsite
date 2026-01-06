@@ -81,8 +81,8 @@ export default function AboutPage() {
                 Who We Are
               </span>
               <h1 className="text-display text-neo-black leading-tight">
-                <span className={`block transition-all duration-700 delay-100 ${heroVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-12'}`}>THE</span>
-                <span className={`block hero-gradient-text transition-all duration-700 delay-200 py-2 ${heroVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-12'}`}>DORKSENSE</span>
+                <span className={`block transition-all duration-700 delay-100 ${heroVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-12'}`}>OUR</span>
+                <span className={`block hero-gradient-text transition-all duration-700 delay-200 py-2 ${heroVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-12'}`}>WELLNESS</span>
                 <span className={`block transition-all duration-700 delay-300 ${heroVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-12'}`}>STORY</span>
               </h1>
             </div>
@@ -90,7 +90,7 @@ export default function AboutPage() {
               <div className="relative w-32 h-32 mx-auto animate-float">
                 <Image
                   src="/logoum.png"
-                  alt="Dorksense Logo"
+                  alt="Logo"
                   fill
                   className="object-contain"
                 />

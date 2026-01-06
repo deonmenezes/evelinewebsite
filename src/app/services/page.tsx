@@ -137,14 +137,14 @@ export default function ServicesPage() {
               </span>
             </span>
             
-            <h1 className="text-display text-neo-white leading-none">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-neo-white leading-none">
               <span className={`block transition-all duration-700 delay-200 ${heroVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-20'}`}>
                 A PREMIUM SUITE OF HUMAN
               </span>
-              <span className={`block transition-all duration-700 delay-300 whitespace-nowrap ${heroVisible ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-20 scale-95'}`} style={{ transformOrigin: 'left center' }}>
+              <span className={`block transition-all duration-700 delay-300 ${heroVisible ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-20 scale-95'}`} style={{ transformOrigin: 'left center' }}>
                 <span className="relative inline-block">
                   <span className="hero-gradient-text">TRANSFORMATION</span>
-                  <span className="absolute -bottom-2 left-0 h-2 bg-neo-yellow w-full transform origin-left transition-transform duration-1000 delay-700" style={{ transform: heroVisible ? 'scaleX(1)' : 'scaleX(0)' }}></span>
+                  <span className="absolute -bottom-2 left-0 h-1 sm:h-2 bg-neo-yellow w-full transform origin-left transition-transform duration-1000 delay-700" style={{ transform: heroVisible ? 'scaleX(1)' : 'scaleX(0)' }}></span>
                 </span>
               </span>
               <span className={`block transition-all duration-700 delay-500 ${heroVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-20'}`}>
@@ -153,14 +153,14 @@ export default function ServicesPage() {
             </h1>
             
             {/* Animated journey path */}
-            <div className={`mt-8 text-2xl font-bold text-neo-white/80 max-w-2xl transition-all duration-700 delay-700 ${heroVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-10'}`}>
+            <div className={`mt-6 sm:mt-8 text-lg sm:text-2xl font-bold text-neo-white/80 max-w-2xl transition-all duration-700 delay-700 ${heroVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-10'}`}>
               <div className="flex flex-wrap items-center gap-1">
                 <span className="inline-block hover:text-neo-yellow hover:scale-110 transition-all duration-300 cursor-default">Insight</span>
-                <span className="inline-block mx-2 text-neo-pink animate-pulse">→</span>
+                <span className="inline-block mx-1 sm:mx-2 text-neo-pink animate-pulse">→</span>
                 <span className="inline-block hover:text-neo-pink hover:scale-110 transition-all duration-300 cursor-default">Experience</span>
-                <span className="inline-block mx-2 text-neo-yellow animate-pulse" style={{ animationDelay: '0.2s' }}>→</span>
+                <span className="inline-block mx-1 sm:mx-2 text-neo-yellow animate-pulse" style={{ animationDelay: '0.2s' }}>→</span>
                 <span className="inline-block hover:text-neo-blue hover:scale-110 transition-all duration-300 cursor-default">Growth</span>
-                <span className="inline-block mx-2 text-neo-blue animate-pulse" style={{ animationDelay: '0.4s' }}>→</span>
+                <span className="inline-block mx-1 sm:mx-2 text-neo-blue animate-pulse" style={{ animationDelay: '0.4s' }}>→</span>
                 <span className="inline-block hover:text-neo-green hover:scale-110 transition-all duration-300 cursor-default">Impact</span>
               </div>
             </div>
@@ -188,14 +188,14 @@ export default function ServicesPage() {
       </section>
 
       {/* Services */}
-      <section className="py-24">
+      <section className="py-12 sm:py-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="space-y-32">
+          <div className="space-y-16 sm:space-y-32">
             {services.map((service, index) => (
               <div
                 key={service.id}
                 id={service.id}
-                className={`scroll-animate grid grid-cols-1 lg:grid-cols-2 gap-12 items-center ${
+                className={`scroll-animate grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 items-center ${
                   index % 2 === 1 ? "lg:flex-row-reverse" : ""
                 }`}
                 onMouseEnter={() => setActiveService(service.id)}

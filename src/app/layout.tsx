@@ -17,7 +17,7 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "DORKSENSE | Bold Wellness Revolution",
+  title: "Bold Wellness Revolution",
   description:
     "Where Human Transformation Meets Intelligent Frequency Wellness. Break the mold. Find your clarity. Join the wellness revolution.",
   keywords: [
@@ -28,7 +28,6 @@ export const metadata: Metadata = {
     "coaching",
     "emotional clarity",
     "holistic wellness",
-    "dorksense",
   ],
 };
 

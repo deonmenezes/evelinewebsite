@@ -34,12 +34,12 @@ export default function Footer() {
   return (
     <footer className="bg-neo-black text-neo-white relative overflow-hidden">
       {/* Marquee Banner */}
-      <div className="bg-neo-yellow border-y-4 border-neo-black py-3 overflow-hidden">
+      <div className="bg-neo-yellow border-y-4 border-neo-black py-2 sm:py-3 overflow-hidden">
         <div className="animate-marquee whitespace-nowrap flex">
           {[...Array(10)].map((_, i) => (
             <span
               key={i}
-              className="mx-8 text-neo-black font-black text-lg uppercase tracking-widest"
+              className="mx-4 sm:mx-8 text-neo-black font-black text-sm sm:text-lg uppercase tracking-widest"
             >
               ★ Bold Wellness ★ Break The Mold ★ Find Clarity ★ Transform ★
             </span>
@@ -47,35 +47,32 @@ export default function Footer() {
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-16">
+        <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-12 gap-8 sm:gap-12">
           {/* Brand */}
-          <div className="lg:col-span-5">
+          <div className="col-span-2 md:col-span-2 lg:col-span-5">
             <Link href="/" className="inline-flex items-center gap-4 group">
-              <div className="relative w-16 h-16 border-4 border-neo-white bg-neo-white overflow-hidden group-hover:rotate-6 transition-transform">
+              <div className="relative w-12 sm:w-16 h-12 sm:h-16 border-4 border-neo-white bg-neo-white overflow-hidden group-hover:rotate-6 transition-transform">
                 <Image
                   src="/logoum.png"
-                  alt="Dorksense Logo"
+                  alt="Logo"
                   fill
                   className="object-contain p-1"
                 />
               </div>
-              <span className="text-4xl font-black uppercase tracking-tight">
-                DORK<span className="text-neo-pink">SENSE</span>
-              </span>
             </Link>
-            <p className="mt-6 text-neo-white/70 text-lg max-w-sm leading-relaxed">
+            <p className="mt-4 sm:mt-6 text-neo-white/70 text-sm sm:text-lg max-w-sm leading-relaxed">
               Breaking the mold of traditional wellness. Bold transformations
               for bold humans. No fluff. Just results.
             </p>
 
             {/* Social Links */}
-            <div className="mt-8 flex gap-4">
+            <div className="mt-6 sm:mt-8 flex gap-3 sm:gap-4">
               {socialLinks.map((social) => (
                 <Link
                   key={social.name}
                   href={social.href}
-                  className="w-12 h-12 border-3 border-neo-white bg-transparent flex items-center justify-center font-bold text-xl hover:bg-neo-pink hover:border-neo-pink hover:text-neo-black transition-all hover:rotate-6"
+                  className="w-10 sm:w-12 h-10 sm:h-12 border-3 border-neo-white bg-transparent flex items-center justify-center font-bold text-lg sm:text-xl hover:bg-neo-pink hover:border-neo-pink hover:text-neo-black transition-all hover:rotate-6"
                   aria-label={social.name}
                 >
                   {social.icon}
@@ -86,16 +83,16 @@ export default function Footer() {
 
           {/* Services */}
           <div className="lg:col-span-2">
-            <h3 className="text-neo-yellow font-black text-sm uppercase tracking-widest mb-6 flex items-center gap-2">
-              <span className="w-3 h-3 bg-neo-yellow"></span>
+            <h3 className="text-neo-yellow font-black text-xs sm:text-sm uppercase tracking-widest mb-3 sm:mb-6 flex items-center gap-2">
+              <span className="w-2 sm:w-3 h-2 sm:h-3 bg-neo-yellow"></span>
               Services
             </h3>
-            <ul className="space-y-3">
+            <ul className="space-y-2 sm:space-y-3">
               {footerLinks.services.map((link) => (
                 <li key={link.name}>
                   <Link
                     href={link.href}
-                    className="text-neo-white/70 hover:text-neo-yellow transition-colors font-medium hover:translate-x-2 inline-block"
+                    className="text-neo-white/70 hover:text-neo-yellow transition-colors font-medium hover:translate-x-2 inline-block text-sm sm:text-base"
                   >
                     → {link.name}
                   </Link>
@@ -106,16 +103,16 @@ export default function Footer() {
 
           {/* Company */}
           <div className="lg:col-span-2">
-            <h3 className="text-neo-pink font-black text-sm uppercase tracking-widest mb-6 flex items-center gap-2">
-              <span className="w-3 h-3 bg-neo-pink"></span>
+            <h3 className="text-neo-pink font-black text-xs sm:text-sm uppercase tracking-widest mb-3 sm:mb-6 flex items-center gap-2">
+              <span className="w-2 sm:w-3 h-2 sm:h-3 bg-neo-pink"></span>
               Company
             </h3>
-            <ul className="space-y-3">
+            <ul className="space-y-2 sm:space-y-3">
               {footerLinks.company.map((link) => (
                 <li key={link.name}>
                   <Link
                     href={link.href}
-                    className="text-neo-white/70 hover:text-neo-pink transition-colors font-medium hover:translate-x-2 inline-block"
+                    className="text-neo-white/70 hover:text-neo-pink transition-colors font-medium hover:translate-x-2 inline-block text-sm sm:text-base"
                   >
                     → {link.name}
                   </Link>
@@ -125,17 +122,17 @@ export default function Footer() {
           </div>
 
           {/* Resources & CTA */}
-          <div className="lg:col-span-3">
-            <h3 className="text-neo-blue font-black text-sm uppercase tracking-widest mb-6 flex items-center gap-2">
-              <span className="w-3 h-3 bg-neo-blue"></span>
+          <div className="col-span-2 md:col-span-2 lg:col-span-3">
+            <h3 className="text-neo-blue font-black text-xs sm:text-sm uppercase tracking-widest mb-3 sm:mb-6 flex items-center gap-2">
+              <span className="w-2 sm:w-3 h-2 sm:h-3 bg-neo-blue"></span>
               Resources
             </h3>
-            <ul className="space-y-3 mb-8">
+            <ul className="space-y-2 sm:space-y-3 mb-6 sm:mb-8">
               {footerLinks.resources.map((link) => (
                 <li key={link.name}>
                   <Link
                     href={link.href}
-                    className="text-neo-white/70 hover:text-neo-blue transition-colors font-medium hover:translate-x-2 inline-block"
+                    className="text-neo-white/70 hover:text-neo-blue transition-colors font-medium hover:translate-x-2 inline-block text-sm sm:text-base"
                   >
                     → {link.name}
                   </Link>
@@ -145,7 +142,7 @@ export default function Footer() {
 
             <Link
               href="/contact"
-              className="inline-block px-8 py-4 bg-neo-yellow text-neo-black font-black uppercase border-4 border-neo-white hover:bg-neo-pink hover:translate-x-[-4px] hover:translate-y-[-4px] hover:shadow-[8px_8px_0_0_#fff] transition-all"
+              className="inline-block px-4 sm:px-8 py-3 sm:py-4 bg-neo-yellow text-neo-black font-black uppercase border-4 border-neo-white hover:bg-neo-pink hover:translate-x-[-4px] hover:translate-y-[-4px] hover:shadow-[8px_8px_0_0_#fff] transition-all text-sm sm:text-base"
             >
               Let&apos;s Talk →
             </Link>
@@ -153,10 +150,10 @@ export default function Footer() {
         </div>
 
         {/* Bottom */}
-        <div className="mt-16 pt-8 border-t-4 border-neo-white/20">
+        <div className="mt-8 sm:mt-16 pt-6 sm:pt-8 border-t-4 border-neo-white/20">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-            <p className="text-neo-white/50 text-sm font-medium">
-              © {new Date().getFullYear()} DORKSENSE. All rights reserved.
+            <p className="text-neo-white/50 text-xs sm:text-sm font-medium">
+              © {new Date().getFullYear()} All rights reserved.
             </p>
             <div className="flex items-center gap-6">
               <span className="px-4 py-2 border-2 border-neo-yellow text-neo-yellow text-xs font-bold uppercase">
