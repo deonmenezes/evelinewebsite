@@ -2,6 +2,12 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import emailjs from "@emailjs/browser";
+
+// EmailJS Configuration
+const EMAILJS_SERVICE_ID = "service_rxicvpn";
+const EMAILJS_TEMPLATE_ID = "template_br07qd9";
+const EMAILJS_PUBLIC_KEY = "M1Fc1JWnR10YBaTNg";
 
 const inquiryTypes = [
   { value: "general", label: "General Inquiry", emoji: "�️" },
@@ -77,42 +83,38 @@ export default function ContactPage() {
     const selectedType = inquiryTypes.find(t => t.value === formData.inquiryType);
     const questions = questionnaireQuestions[formData.inquiryType];
     
-    let emailBody = `NEW INQUIRY FROM UMM.GLOBAL CONTACT FORM
-
-CONTACT INFORMATION
-Name: ${formData.name}
-Email: ${formData.email}
-Phone: ${formData.phone || "Not provided"}
-
-INQUIRY TYPE: ${selectedType?.label}
-
-QUESTIONNAIRE RESPONSES
-`;
-    
+    let questionnaireText = "";
     questions.forEach((q, index) => {
-      emailBody += `
-Q: ${q.question}
-A: ${questionnaireAnswers[`q${index}`] || "Not answered"}
-`;
+      questionnaireText += `Q: ${q.question}\nA: ${questionnaireAnswers[`q${index}`] || "Not answered"}\n\n`;
     });
-    
-    emailBody += `
-ADDITIONAL MESSAGE
-${formData.message || "No additional message"}`;
 
-    // Create mailto link and open it
-    const subject = encodeURIComponent(`[UMM.Global Inquiry] ${selectedType?.label} from ${formData.name}`);
-    const body = encodeURIComponent(emailBody);
-    const mailtoLink = `mailto:contact@umm.global?subject=${subject}&body=${body}`;
-    
-    // Open email client in new window
-    window.open(mailtoLink, '_blank');
-    
-    // Short delay then show success
-    await new Promise((resolve) => setTimeout(resolve, 500));
-    setIsSubmitting(false);
-    setIsModalOpen(false);
-    setIsSubmitted(true);
+    // Prepare template parameters for EmailJS
+    const templateParams = {
+      from_name: formData.name,
+      from_email: formData.email,
+      phone: formData.phone || "Not provided",
+      inquiry_type: selectedType?.label,
+      questionnaire: questionnaireText,
+      message: formData.message || "No additional message",
+      to_email: "contact@umm.global",
+    };
+
+    try {
+      await emailjs.send(
+        EMAILJS_SERVICE_ID,
+        EMAILJS_TEMPLATE_ID,
+        templateParams,
+        EMAILJS_PUBLIC_KEY
+      );
+      
+      setIsSubmitting(false);
+      setIsModalOpen(false);
+      setIsSubmitted(true);
+    } catch (error) {
+      console.error("Failed to send email:", error);
+      alert("Failed to send message. Please try again or email us directly at contact@umm.global");
+      setIsSubmitting(false);
+    }
   };
 
   const handleChange = (
