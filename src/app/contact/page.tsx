@@ -2,6 +2,12 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import emailjs from "@emailjs/browser";
+
+// EmailJS Configuration
+const EMAILJS_SERVICE_ID = "service_rxicvpn";
+const EMAILJS_TEMPLATE_ID = "template_br07qd9";
+const EMAILJS_PUBLIC_KEY = "M1Fc1JWnR10YBaTNg";
 
 const inquiryTypes = [
   { value: "general", label: "General Inquiry", emoji: "�️" },
@@ -72,47 +78,46 @@ export default function ContactPage() {
 
   const handleFinalSubmit = async () => {
     setIsSubmitting(true);
-    
+
     // Build email body with all form data and questionnaire answers
     const selectedType = inquiryTypes.find(t => t.value === formData.inquiryType);
     const questions = questionnaireQuestions[formData.inquiryType];
-    
-    let emailBody = `NEW INQUIRY FROM UMM.GLOBAL CONTACT FORM
 
-CONTACT INFORMATION
-Name: ${formData.name}
-Email: ${formData.email}
-Phone: ${formData.phone || "Not provided"}
-
-INQUIRY TYPE: ${selectedType?.label}
-
-QUESTIONNAIRE RESPONSES
-`;
-    
+    // Build questionnaire responses as formatted text
+    let questionnaireText = "";
     questions.forEach((q, index) => {
-      emailBody += `
-Q: ${q.question}
-A: ${questionnaireAnswers[`q${index}`] || "Not answered"}
-`;
+      questionnaireText += `Q: ${q.question}\nA: ${questionnaireAnswers[`q${index}`] || "Not answered"}\n\n`;
     });
-    
-    emailBody += `
-ADDITIONAL MESSAGE
-${formData.message || "No additional message"}`;
 
-    // Create mailto link and open it
-    const subject = encodeURIComponent(`[UMM.Global Inquiry] ${selectedType?.label} from ${formData.name}`);
-    const body = encodeURIComponent(emailBody);
-    const mailtoLink = `mailto:contact@umm.global?subject=${subject}&body=${body}`;
-    
-    // Open email client in new window
-    window.open(mailtoLink, '_blank');
-    
-    // Short delay then show success
-    await new Promise((resolve) => setTimeout(resolve, 500));
-    setIsSubmitting(false);
-    setIsModalOpen(false);
-    setIsSubmitted(true);
+    // Prepare template parameters for EmailJS
+    const templateParams = {
+      from_name: formData.name,
+      from_email: formData.email,
+      email: formData.email, // for Reply To field
+      phone: formData.phone || "Not provided",
+      inquiry_type: selectedType?.label || "General",
+      questionnaire: questionnaireText,
+      message: formData.message || "No additional message",
+    };
+
+    try {
+      await emailjs.send(
+        EMAILJS_SERVICE_ID,
+        EMAILJS_TEMPLATE_ID,
+        templateParams,
+        EMAILJS_PUBLIC_KEY
+      );
+
+      setIsSubmitting(false);
+      setIsModalOpen(false);
+      setIsSubmitted(true);
+    } catch (error: unknown) {
+      console.error("EmailJS error:", error);
+      const emailError = error as { text?: string; status?: number };
+      console.error("Error details:", emailError?.text, emailError?.status);
+      setIsSubmitting(false);
+      alert(`Failed to send message: ${emailError?.text || "Unknown error"}. Please try again or email us directly at contact@umm.global`);
+    }
   };
 
   const handleChange = (
